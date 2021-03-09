@@ -1,0 +1,6 @@
+html,body,
+div,p,a,ul,li,span,input{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
