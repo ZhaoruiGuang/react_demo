@@ -5,7 +5,7 @@ class ContextTest extends React.Component{
 		super(args)
 	}
 	
-	static contextType = UserDataContext;
+	// static contextType = UserDataContext;
 	render(){
 		return (
 			<div style={{'margin':'50px 0','backgroundColor':'#f5f2f0','padding':'30px 20px'}}>

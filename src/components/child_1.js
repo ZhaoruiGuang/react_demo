@@ -10,6 +10,15 @@ class Child1 extends React.Component{
 		this.sayName = this.sayName.bind(this);  
 		this.changeValue = this.changeValue.bind(this);  
 	}
+	
+	componentWillMount(){
+		console.log('child1 will mount~')
+	}
+	
+	componentDidUpdate(){
+		console.log('child1 updated~')
+	}
+	
 	sayName(e){
 		console.log(this.props.name)
 		console.log(e.target.innerHTML)

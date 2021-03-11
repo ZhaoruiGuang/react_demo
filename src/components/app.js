@@ -7,6 +7,8 @@ import LazyComponent from './lazy_load.js';	 // 函数组件
 import ErrorBoundary from './errorBoundary.js';	 // 错误边界组件/捕获错误组件
 import Error from './error.js';	
 import ContextTest from './context.js';	
+import ClassRefTextInput from './ref_class.js';	  	// class 组件应用 ref
+import FuncRefTextInput from './ref_function.js';	// 函数组件应用 ref
 
 import { connect } from 'react-redux'
 import { changeCount,changeCountAsync,undateTestState } from '../redux/actions.js'
@@ -29,7 +31,11 @@ class App extends Component{
 		[
 			'addCount',
 			'mySelfTag',
+			'refInputFocus',
 		].forEach(item => this[item] = this[item].bind(this));   // 给每一个方法绑定 this
+		
+		this.parentRef = React.createRef();
+		this.parentRef2 = React.createRef();
 	}
 	componentWillMount(){
 		console.log('app.js will mount')
@@ -71,9 +77,15 @@ class App extends Component{
 		)
 	}
 	
+	// 点击父组件按钮,让子组件里的 input 框聚焦
+	refInputFocus(){
+		this.parentRef.current.focusText();
+		console.log(this.parentRef.current)		// 整个 class 组件
+		console.log(this.parentRef.current.state.name)
+		console.log(this.parentRef2.current)    // dom 元素 : p 标签
+	}
+	
 	render(){
-		
-		console.log('更新了 app.js --')
 		
 		return (
 			<UserDataContext.Provider value={userData}>
@@ -95,15 +107,18 @@ class App extends Component{
 					
 					<LazyComponent></LazyComponent>
 					
-					<Child1 name="小明"></Child1>
+					<Child1 name={this.state.name}></Child1>
 					{ Child2({name:'小红'}) }
 					
 					<ErrorBoundary>
 						<Error></Error>
 					</ErrorBoundary>
 					
-					<ContextTest></ContextTest>
 					
+					
+					<ClassRefTextInput ref={this.parentRef}></ClassRefTextInput>
+					<FuncRefTextInput ref={this.parentRef2}>这是props.children</FuncRefTextInput>
+					<span onClick={this.refInputFocus} style={{'display':'block','margin':'0 0 50px 0'}}>点我可以让ref组件里的 input 框聚焦</span>
 					
 					{
 						this.props.isLoading
