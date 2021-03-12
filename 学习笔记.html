@@ -1,0 +1,22 @@
+1、增加错误边界（React 16 及以上版本），捕获组件里的错误，填充备用 UI，防止某一部分报错而导致整个页面无法显示
+2、引用 redux-ignore 优化 reducer 执行，减少不必要的 reducer 判断操作
+3、高阶组件是参数为组件，返回值为新组件的函数；组件是将 props 转换为 UI，而高阶组件是将组件转换为另一个组件。
+4、JSX 标签类型不能是一个表达式，例如 :
+	错误示例：
+		<a.b></a.b>
+	正确示例：
+		let Ab = a.b;
+		<Ab></Ab>
+5、如果你没给 prop 赋值，它的默认值是 true。以下两个 JSX 表达式是等价的：
+	<MyTextBox autocomplete />
+	<MyTextBox autocomplete={true} />
+6、React 组件也能够返回存储在数组中的一组元素：
+	render() {
+		// 不需要用额外的元素包裹列表元素！
+		return [
+			// 不要忘记设置 key :)
+			<li key="A">First item</li>,
+			<li key="B">Second item</li>,
+			<li key="C">Third item</li>,
+		];
+	}

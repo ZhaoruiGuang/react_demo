@@ -109,6 +109,7 @@ class App extends Component{
 					
 					<Child1 name={this.state.name}></Child1>
 					{ Child2({name:'小红'}) }
+					<Child2 name="小红"></Child2>
 					
 					<ErrorBoundary>
 						<Error></Error>
