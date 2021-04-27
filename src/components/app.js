@@ -7,17 +7,27 @@ import LazyComponent from './lazy_load.js';	 // 函数组件
 import ErrorBoundary from './errorBoundary.js';	 // 错误边界组件/捕获错误组件
 import Error from './error.js';	
 import ContextTest from './context.js';	
+import HookContext from './hook_useContext.js';	
 import ClassRefTextInput from './ref_class.js';	  	// class 组件应用 ref
 import FuncRefTextInput from './ref_function.js';	// 函数组件应用 ref
+import FuncProps from './props_function.js';
+import UpdateContral from './update_contral.js';
+import DefaultProps from './default_props.js';
+import HookReducer from './hook_useReducer.js';
+import HookReducer2 from './hook_useReducer2.js';
+import HookCallback from './hook_useCallback.js';
+import HookRef from './hook_useRef.js';
 
 import { connect } from 'react-redux'
 import { changeCount,changeCountAsync,undateTestState } from '../redux/actions.js'
 
 let userData = {
-	name:'li',
+	name:'小黑',
 	age:'18'
 }
-let UserDataContext = React.createContext(userData)
+
+// export const {Provider,Consumer} = React.createContext(userData);
+export const MyContext = React.createContext(userData);
 
 class App extends Component{
 	constructor(props) {
@@ -85,11 +95,19 @@ class App extends Component{
 		console.log(this.parentRef2.current)    // dom 元素 : p 标签
 	}
 	
+	changeName(){
+		this.setState({
+			name:'新名字'
+		})
+	}
+	
 	render(){
 		
+		console.log('app.js  render')
+		
 		return (
-			<UserDataContext.Provider value={userData}>
-				<div>
+			<MyContext.Provider value={userData}>
+				<div style={{'padding':'0 0 100px 0'}}>
 					<h2>Hello, world !</h2>
 					
 					{
@@ -107,6 +125,9 @@ class App extends Component{
 					
 					<LazyComponent></LazyComponent>
 					
+					<br/><br/>
+					<div onClick={()=>this.changeName()}>点击我更改 state.name,看 children 1 怎么变化 </div>
+					
 					<Child1 name={this.state.name}></Child1>
 					{ Child2({name:'小红'}) }
 					<Child2 name="小红"></Child2>
@@ -114,8 +135,6 @@ class App extends Component{
 					<ErrorBoundary>
 						<Error></Error>
 					</ErrorBoundary>
-					
-					
 					
 					<ClassRefTextInput ref={this.parentRef}></ClassRefTextInput>
 					<FuncRefTextInput ref={this.parentRef2}>这是props.children</FuncRefTextInput>
@@ -134,8 +153,23 @@ class App extends Component{
 					<br/>
 					
 					<span onClick={this.props.undateTest}>只有点击我才会执行 testState reducer</span>
+					
+					<br/><br/>
+					<FuncProps></FuncProps>
+					
+					<UpdateContral></UpdateContral>
+					
+					<DefaultProps />
+					
+					<ContextTest></ContextTest>
+					<HookContext></HookContext>
+					<HookReducer></HookReducer>
+					<HookReducer2></HookReducer2>
+					<HookCallback></HookCallback>
+					<HookRef></HookRef>
+					
 				</div>
-			</UserDataContext.Provider>
+			</MyContext.Provider>
 			
 		)
 	}

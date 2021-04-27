@@ -8,6 +8,7 @@ let TEST_STATE = 'testState';
 
 let count = (state=1,action) =>{
 	console.log('每个 action 都会执行这个 reducer ~11111')
+	console.log(action.type)
 	switch (action.type){
 		case ADD_COUNT:
 			return state + 1;

@@ -19,6 +19,22 @@ class Child1 extends React.Component{
 		console.log('child1 updated~')
 	}
 	
+	// props 变化监听,,,即将过时,不建议使用
+	componentWillReceiveProps(props){
+		console.log('child_1 received props',props)
+	}
+	
+	componentWillUnmount(){
+		console.log('child_1 will unmount')
+	}
+	
+	// 监听 props 和 state 的变化,判断组件是否更新
+	shouldComponentUpdate(nextProps, nextState){
+		console.log('child_1  shoud update or not ?')
+		console.log(nextProps,nextState)
+		return true
+	}
+	
 	sayName(e){
 		console.log(this.props.name)
 		console.log(e.target.innerHTML)
@@ -33,6 +49,9 @@ class Child1 extends React.Component{
 	}
 	
 	render(){
+		
+		console.log('child_1  render ')
+		
 		return (
 			<div style={{'margin':'50px 0','backgroundColor':'#f5f2f0','padding':'30px 20px'}}>
 				<h3>Child1 里的内容:</h3>

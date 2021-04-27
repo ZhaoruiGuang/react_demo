@@ -20,3 +20,47 @@
 			<li key="C">Third item</li>,
 		];
 	}
+	
+7、react 组件要定义默认 props ，使用 defaultProps:
+	(1) 写在组件外部
+		class Greeting extends React.Component {
+			render() {
+				return (
+					<h1>Hello, {this.props.name}</h1>
+				);
+			}
+		}
+		
+		// 指定 props 的默认值：
+		Greeting.defaultProps = {
+			name: 'Stranger'
+		};
+	(2) 写在组件内部（需要借助像 transform-class-properties  的 babel 工具，否则不支持这种内部写法）
+		class Greeting extends React.Component {
+		  static defaultProps = {
+		    name: 'stranger'
+		  }
+		
+		  render() {
+		    return (
+		      <div>Hello, {this.props.name}</div>
+		    )
+		  }
+		}
+
+8、react 组件要规定 props 的格式，需要借助: prop-types 包
+	import PropTypes from 'prop-types';
+	
+	class Greeting extends React.Component {
+	  render() {
+	    return (
+	      <h1>Hello, {this.props.name}</h1>
+	    );
+	  }
+	}
+	
+	Greeting.propTypes = {
+	  name: PropTypes.string
+	};
+	
+9、input 框的 defaultValue 和 value 属性不能同时使用（本来也没必要，需要提示就用 placeholder 就行）
